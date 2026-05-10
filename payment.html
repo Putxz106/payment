@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment Putxz</title>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:
+  radial-gradient(circle at top,#1f1f3a,#0f0f0f 70%);
+  overflow-x:hidden;
+  padding:20px;
+  color:white;
+}
+
+.card{
+  width:100%;
+  max-width:420px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.08);
+  backdrop-filter:blur(18px);
+  border-radius:28px;
+  padding:28px;
+  box-shadow:0 0 40px rgba(0,0,0,0.4);
+  position:relative;
+  animation:muncul .7s ease;
+}
+
+@keyframes muncul{
+  from{
+    opacity:0;
+    transform:translateY(25px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.profile{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.profile img{
+  width:95px;
+  height:95px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid rgba(255,255,255,0.15);
+  box-shadow:0 0 25px rgba(255,255,255,0.15);
+}
+
+.profile h1{
+  margin-top:14px;
+  font-size:30px;
+}
+
+.profile p{
+  margin-top:6px;
+  font-size:14px;
+  color:#cfcfcf;
+}
+
+.btn{
+  width:100%;
+  border:none;
+  padding:16px;
+  border-radius:18px;
+  margin-top:15px;
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.btn:hover{
+  transform:scale(1.03);
+}
+
+.qris{
+  background:linear-gradient(45deg,#00c6ff,#0072ff);
+  box-shadow:0 0 20px rgba(0,114,255,.4);
+}
+
+.dana{
+  background:linear-gradient(45deg,#7f00ff,#d000ff);
+  box-shadow:0 0 20px rgba(174,0,255,.35);
+}
+
+.note{
+  margin-top:25px;
+  background:rgba(255,255,255,0.04);
+  padding:18px;
+  border-radius:18px;
+  line-height:1.8;
+}
+
+.note h2{
+  margin-bottom:10px;
+  font-size:18px;
+}
+
+.note p{
+  color:#d7d7d7;
+  font-size:14px;
+}
+
+.watermark{
+  position:fixed;
+  bottom:15px;
+  left:50%;
+  transform:translateX(-50%);
+  opacity:.35;
+  font-size:14px;
+  z-index:9999;
+  pointer-events:none;
+  animation:geser 5s linear infinite alternate;
+  text-shadow:0 0 10px rgba(255,255,255,.2);
+}
+
+@keyframes geser{
+  from{
+    transform:translateX(-65%);
+  }
+  to{
+    transform:translateX(-35%);
+  }
+}
+
+.popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.75);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  z-index:999;
+}
+
+.popup-box{
+  width:100%;
+  max-width:350px;
+  background:#121212;
+  padding:20px;
+  border-radius:25px;
+  text-align:center;
+  animation:muncul .3s ease;
+}
+
+.popup-box img{
+  width:100%;
+  border-radius:18px;
+}
+
+.download{
+  margin-top:12px;
+  width:100%;
+  border:none;
+  padding:14px;
+  border-radius:15px;
+  background:linear-gradient(45deg,#00ff88,#00b86b);
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 0 20px rgba(0,255,136,.25);
+  transition:.25s;
+}
+
+.download:hover{
+  transform:scale(1.03);
+}
+
+.close{
+  margin-top:16px;
+  width:100%;
+  border:none;
+  padding:14px;
+  border-radius:15px;
+  background:#ff2e63;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.toast{
+  position:fixed;
+  bottom:30px;
+  left:50%;
+  transform:translateX(-50%) translateY(100px);
+  background:rgba(15,15,15,.96);
+  padding:15px 22px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(12px);
+  color:white;
+  font-size:14px;
+  opacity:0;
+  transition:.35s ease;
+  box-shadow:0 0 25px rgba(0,0,0,.35);
+  z-index:9999;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <div class="profile">
+    <img src="https://files.catbox.moe/8x0xoq.png">
+    <h1>Payment Putxz</h1>
+    <p>WAJIB KIRIM BUKTI TRANSFER!!</p>
+  </div>
+
+  <button class="btn qris" onclick="openQris()">
+    QRIS
+  </button>
+
+  <button class="btn dana" onclick="copyDana()">
+    No DANA
+  </button>
+
+  <div class="note">
+  <h2>UTAMAKAN MEMBACA</h2>
+
+  <p>
+
+<b>RULES FT CS BY Putxz</b><br>
+HARAP MEMBACA❗❗<br>
+NO REFF💥<br>
+MAKSA HANGUS 🔥<br><br>
+
+<b>ROOM SETTING:</b><br>
+✅ Ammo Limit | TIDAK / NO<br>
+✅ Throwable Limit | TIDAK / NO<br>
+✅ Crazy Store | Coin 1500<br>
+✅ Airdrop OFF | Loadout OFF (Jika Loadout ON = RM!)<br>
+✅ Unlimited Ammo<br>
+✅ Minimal akun lvl 20 (di bawah lvl 20 SS 00)<br><br>
+
+<b>RULES MATCH:</b><br>
+✅ Karakter Wajib: Alok, Hayato, Kelly, Caroline<br>
+✅ PET : FALCO, PENTER, SHIBA, KITTY SELAIN ITU DIS<br>
+✅ All skin SG2 boleh<br>
+✅ All bundel/set bebas<br>
+❌ FULL SET BALAP, BENCONG, TUNG TUNG DIS<br>
+✅ All berubah boleh<br>
+❌ NO Atap/Lt2<br>
+❌ NO Kolong CT<br>
+✅ Tangga BOLEH<br>
+❌ NO Spion (DIS!)<br>
+❌ Kepental 3x = DIS<br>
+❌ NO Sepatu<br>
+❌ NO HS Brutal<br>
+❌ NO Character Cewek & Wanita Berbadan<br>
+❌ NO Rege, File, Config, Script, Aimbot, MB, SURCIN, DLL<br>
+✅ Naik ban boleh, tapi gak ke atap<br><br>
+
+<b>RONDE 00:</b><br>
+➡️ 1 SG Only<br>
+❌ NO Gloo<br>
+❌ NO Vest<br>
+❌ NO Helm<br>
+✅ End animasi boleh<br>
+✅ Belum damage boleh RM<br><br>
+
+<b>LARANGAN:</b><br>
+❌ NO Tinju (DIS!)<br>
+❌ NO USP (Kecuali AFK = BOLEH)<br>
+❌ NO SPECTATOR<br><br>
+
+<b>ROOM MANAGEMENT:</b><br>
+➡️ SALAH BIKIN ROOM RM<br>
+➡️ 2X SALAH = DIS<br>
+➡️ GAMAU OPR 10 MENIT = DIS<br>
+➡️ GA BOLEH GANTI PEMAIN<br>
+➡️ Musuh gak masuk room 15 MENIT = DIS<br><br>
+
+<b>ZONA:</b><br>
+❌ 11 & 22 NO ZONA<br>
+✅ 33 & 44 BOLEH ZONE JIKA RONDE 3<br><br>
+
+<b>RULES DIS NEW BY NUNZY:</b><br>
+❌ NO HS BRUTAL<br>
+❌ NO TEMBUS² GLOWALL<br>
+❌ NO FILE ROOT DLL<br><br>
+
+📌 MISALKAN LU TEMBUS² TAPI G LAG<br>
+📌 NEMBAK LANCAR WAJIB BAWA BUKTI REC 2+<br><br>
+
+<b>PELANGGARAN:</b><br>
+📌 DIS WAJIB RECORD<br>
+🏆 MENANG? SS TAG ADMIN<br>
+❌ Spam tag >3x = HANGUS<br>
+❌ Langgar DIS NO DRAMA<br>
+❌ DAH TF TAPI GJDI MAEN = HANGUS<br><br>
+
+<b>RULESS WINN:</b><br>
+JANGAN OUT GB SEBELUM ADMIN MENYATAKAN DONE TF<br>
+JIKA OUT = ADMIN ANGGAP DONE TF<br><br>
+
+<b>GASUKA RULES KU? GUSAH MAEN</b><br>
+<b>DIS NO TOLERANSI ❌❌</b>
+
+  </p>
+</div>
+
+</div>
+
+<div class="popup" id="popup">
+  <div class="popup-box">
+
+    <img src="https://files.catbox.moe/iwx6g0.jpg">
+
+    <a href="https://files.catbox.moe/iwx6g0.jpg" download>
+      <button class="download">
+        Download QRIS
+      </button>
+    </a>
+
+    <button class="close" onclick="closeQris()">
+      Tutup
+    </button>
+
+  </div>
+</div>
+
+<div class="toast" id="toast">
+  Nomor DANA berhasil disalin
+</div>
+
+<div class="watermark">
+  © Putxz
+</div>
+
+<script>
+
+function openQris(){
+  document.getElementById("popup").style.display = "flex";
+}
+
+function closeQris(){
+  document.getElementById("popup").style.display = "none";
+}
+
+function copyDana(){
+
+  navigator.clipboard.writeText("089515067603");
+
+  const toast = document.getElementById("toast");
+
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  },2500);
+
+}
+
+</script>
+
+</body>
+</html>
